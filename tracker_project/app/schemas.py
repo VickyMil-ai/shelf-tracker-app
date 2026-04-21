@@ -36,6 +36,18 @@ class ItemCreate(BaseModel):
     notes: Optional[str] = None
     status: Optional[str] = "watched"
     
+    @field_validator("status")
+    def status_matches_type(cls, v, info):
+        type_ = info.data.get("type")
+        film_statuses = {"watched", "plan_to_watch"}
+        book_statuses = {"read", "plan_to_read", "reading"}
+
+        if type_ == "film" and v in book_statuses:
+            raise ValueError("Films can only have status: watched, plan_to_watch")
+        if type_ == "book" and v in film_statuses:
+            raise ValueError("Books can only have status: read, plan_to_read, reading")
+        return v
+
     @field_validator("rating")
     def rating_range(cls, v):
         if v is not None and not (1.0 <= v <= 5.0):
