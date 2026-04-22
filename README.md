@@ -1,6 +1,8 @@
 # tracker-app
 Smart film &amp; book tracker with AI recommendations
 
+fixes: no same email
+
 Useful postgresql commands:
 
 -- See all tables
