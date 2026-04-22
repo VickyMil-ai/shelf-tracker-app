@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap');
+
+.shelf-page {
+    min-height: 100vh;
+    background: #FFF8F0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Header */
+.shelf-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: white;
+    border-bottom: 2px solid #111;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.shelf-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #111;
+}
+
+.shelf-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.shelf-user {
+    font-size: 0.9rem;
+    color: #888;
+    margin-right: 0.5rem;
+}
+
+.nav-btn {
+    padding: 0.5rem 1.1rem;
+    border: 2px solid #111;
+    border-radius: 100px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background: #111;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.nav-btn.primary {
+    background: #FF6B6B;
+    color: white;
+    border-color: #FF6B6B;
+}
+
+.nav-btn.primary:hover {
+    background: #111;
+    border-color: #111;
+}
+
+.nav-btn.logout {
+    border-color: #ddd;
+    color: #aaa;
+}
+
+.nav-btn.logout:hover {
+    background: #111;
+    border-color: #111;
+    color: white;
+}
+
+/* Hero */
+.shelf-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+}
+
+.shelf-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: #111;
+    margin: 0;
+}
+
+.shelf-hero p {
+    color: #888;
+    margin: 0.3rem 0 2rem;
+    font-size: 1rem;
+}
+
+/* Filters */
+.filter-bar {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.2rem;
+    border: 2px solid #ddd;
+    border-radius: 100px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #888;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    border-color: #111;
+    color: #111;
+    background: #111;
+    color: white;
+}
+
+/* Grid */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Cards */
+.item-card {
+    background: white;
+    border: 2px solid #111;
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.2s;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.item-card:hover {
+    transform: translateY(-4px);
+}
+
+.item-card.type-film {
+    box-shadow: 5px 5px 0px #FFD93D;
+}
+
+.item-card.type-book {
+    box-shadow: 5px 5px 0px #6BCB77;
+}
+
+.item-card:hover.type-film {
+    box-shadow: 7px 7px 0px #FFD93D;
+}
+
+.item-card:hover.type-book {
+    box-shadow: 7px 7px 0px #6BCB77;
+}
+
+.card-type {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 0.6rem;
+    line-height: 1.2;
+    padding-right: 1.5rem;
+}
+
+.card-genre {
+    display: inline-block;
+    background: #FFF8F0;
+    border: 1px solid #eee;
+    border-radius: 100px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: #888;
+    margin-bottom: 0.7rem;
+}
+
+.stars {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.star {
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.star.filled {
+    color: #FFD93D;
+}
+
+.no-rating {
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.card-status {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+}
+
+.card-notes {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+    border-left: 3px solid #FFD93D;
+    padding-left: 0.7rem;
+    margin: 0.5rem 0 0;
+    line-height: 1.4;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    line-height: 1;
+}
+
+.delete-btn:hover {
+    color: #FF6B6B;
+}
+
+/* Empty state */
+.shelf-empty {
+    text-align: center;
+    padding: 5rem 0;
+    color: #aaa;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
