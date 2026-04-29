@@ -6,6 +6,10 @@ no same email
 check multiple genres
 edit item
 
+try to add: 
+recs based on planning list
+movie/book db
+
 Useful postgresql commands:
 
 -- See all tables
