@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap');
+
+.rec-page {
+    min-height: 100vh;
+    background: #FFF8F0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.shelf-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: white;
+    border-bottom: 2px solid #111;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.shelf-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #111;
+}
+
+.back-btn-nav {
+    background: none;
+    border: 2px solid #ddd;
+    border-radius: 100px;
+    padding: 0.5rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.back-btn-nav:hover {
+    border-color: #111;
+    color: #111;
+}
+
+.rec-main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.rec-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: #111;
+    margin: 0;
+}
+
+.rec-hero p {
+    color: #888;
+    margin: 0.3rem 0 3rem;
+}
+
+/* Prompt state */
+.rec-prompt {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border: 2px solid #111;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #FFD93D;
+}
+
+.rec-graphic {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.rec-prompt p {
+    color: #555;
+    font-size: 1.05rem;
+    margin: 0.3rem 0;
+}
+
+.rec-note {
+    color: #aaa !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.rec-btn {
+    padding: 0.9rem 2rem;
+    background: #111;
+    color: white;
+    border: 2px solid #111;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+}
+
+.rec-btn:hover {
+    background: #FF6B6B;
+    border-color: #FF6B6B;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px #111;
+}
+
+.rec-btn.secondary {
+    background: white;
+    color: #111;
+    display: block;
+    margin: 2rem auto 0;
+}
+
+.rec-btn.secondary:hover {
+    background: #111;
+    color: white;
+}
+
+/* Loading */
+.rec-loading {
+    text-align: center;
+    padding: 4rem 0;
+    color: #888;
+}
+
+.loading-spinner {
+    font-size: 3rem;
+    animation: spin 1.5s linear infinite;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Error */
+.rec-error-box {
+    text-align: center;
+    padding: 2rem;
+    background: #fff0f0;
+    border: 2px solid #ffcccc;
+    border-radius: 16px;
+    color: #FF6B6B;
+}
+
+/* Results */
+.based-on {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.based-tag {
+    background: white;
+    border: 2px solid #111;
+    border-radius: 100px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    color: #111;
+    font-weight: 500;
+}
+
+.rec-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.rec-card {
+    background: white;
+    border: 2px solid #111;
+    border-radius: 16px;
+    padding: 1.5rem 1.5rem 1.5rem 5rem;
+    position: relative;
+    box-shadow: 5px 5px 0px #C77DFF;
+    animation: fadeIn 0.5s ease both;
+}
+
+.rec-card:nth-child(1) { animation-delay: 0.1s; box-shadow: 5px 5px 0px #FF6B6B; }
+.rec-card:nth-child(2) { animation-delay: 0.2s; box-shadow: 5px 5px 0px #FFD93D; }
+.rec-card:nth-child(3) { animation-delay: 0.3s; box-shadow: 5px 5px 0px #6BCB77; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.rec-number {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #eee;
+    line-height: 1;
+}
+
+.rec-text {
+    color: #333;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+    white-space: pre-wrap;
+}

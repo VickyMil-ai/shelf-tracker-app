@@ -12,8 +12,8 @@ class StatusType(str, enum.Enum):
     watched = "watched"
     read = "read"
     reading = "reading"
-    plan_to_watch = "plan to watch"
-    plan_to_read = "plan to read"
+    plan_to_watch = "plan_to_watch"
+    plan_to_read = "plan_to_read"
     
 
 class User(Base):

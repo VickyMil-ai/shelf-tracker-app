@@ -6,10 +6,10 @@ import './Shelf.css';
 const TYPE_EMOJI = { film: '🎬', book: '📚' };
 const STATUS_LABEL = {
     watched: 'Watched',
-    want_to_watch: 'Want to watch',
+    plan_to_watch: 'Plan to watch',
     read: 'Read',
     reading: 'Reading',
-    want_to_read: 'Want to read'
+    plan_to_read: 'Plan to read'
 };
 
 function Stars({ rating }) {

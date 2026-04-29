@@ -5,13 +5,13 @@ import './AddItem.css';
 
 const FILM_STATUSES = [
     { value: 'watched', label: 'Watched' },
-    { value: 'want_to_watch', label: 'Want to watch' },
+    { value: 'plan_to_watch', label: 'Plan to watch' },
 ];
 
 const BOOK_STATUSES = [
     { value: 'read', label: 'Read' },
     { value: 'reading', label: 'Reading' },
-    { value: 'want_to_read', label: 'Want to read' },
+    { value: 'plan_to_read', label: 'Plan to read' },
 ];
 
 export default function AddItem() {
