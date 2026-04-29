@@ -3,6 +3,7 @@ Smart film &amp; book tracker with AI recommendations
 
 fixes:
 edit item
+sort by planning / rating
 
 try to add: 
 recs based on planning list
