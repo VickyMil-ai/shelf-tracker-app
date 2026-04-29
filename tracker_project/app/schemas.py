@@ -50,8 +50,8 @@ class ItemCreate(BaseModel):
 
     @field_validator("rating")
     def rating_range(cls, v):
-        if v != 0 and not (1.0 <= v <= 5.0):
-            raise ValueError("Rating must be between 1 and 5")
+        if v is not None and not (0.0 <= v <= 5.0):
+            raise ValueError("Rating must be between 0 and 5")
         return v
 
 class ItemUpdate(BaseModel):

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Shelf from './pages/Shelf';
+import AddItem from './pages/AddItem';
 
 function PrivateRoute({ children }) {
     const token = localStorage.getItem('token');
@@ -16,6 +17,7 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/shelf" element={<PrivateRoute><Shelf /></PrivateRoute>} />
+                <Route path="/add" element={<PrivateRoute><AddItem /></PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     );
