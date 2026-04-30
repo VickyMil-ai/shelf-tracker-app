@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import './Recommendations.css';
+import Navbar from '../components/Navbar';
 
 export default function Recommendations() {
     const [result, setResult] = useState(null);
@@ -31,10 +32,7 @@ export default function Recommendations() {
 
     return (
         <div className="rec-page">
-            <header className="shelf-header">
-                <div className="shelf-logo" onClick={() => navigate('/shelf')} style={{ cursor: 'pointer' }}>shelf</div>
-                <button className="back-btn-nav" onClick={() => navigate('/shelf')}>← Back to shelf</button>
-            </header>
+            <Navbar />
 
             <main className="rec-main">
                 <div className="rec-hero">

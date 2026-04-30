@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import './Shelf.css';
+import Navbar from '../components/Navbar';
 
 const TYPE_EMOJI = { film: '🎬', book: '📚' };
 const STATUS_LABEL = {
@@ -23,7 +24,7 @@ function Stars({ rating }) {
     );
 }
 
-function ItemCard({ item, onDelete }) {
+function ItemCard({ item, onDelete, onEdit }) {
     return (
         <div className={`item-card type-${item.type}`}>
             <div className="card-type">{TYPE_EMOJI[item.type]} {item.type}</div>
@@ -32,7 +33,10 @@ function ItemCard({ item, onDelete }) {
             <Stars rating={item.rating} />
             <div className="card-status">{STATUS_LABEL[item.status]}</div>
             {item.notes && <p className="card-notes">"{item.notes}"</p>}
-            <button className="delete-btn" onClick={() => onDelete(item.id)}>✕</button>
+            <div className="card-actions">
+                <button className="edit-btn" onClick={() => onEdit(item)}>✏️</button>
+                <button className="delete-btn" onClick={() => onDelete(item.id)}>✕</button>
+            </div>
         </div>
     );
 }
@@ -75,24 +79,20 @@ export default function Shelf() {
         setItems(items.filter(i => i.id !== id));
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate('/login');
+    const handleEdit = (item) => {
+        navigate('/edit', { state: { item } });
     };
+
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token');
+    //     navigate('/login');
+    // };
 
     const filtered = filter === 'all' ? items : items.filter(i => i.type === filter);
 
     return (
         <div className="shelf-page">
-            <header className="shelf-header">
-                <div className="shelf-logo">shelf</div>
-                <nav className="shelf-nav">
-                    <span className="shelf-user">hey {username}!</span>
-                    <button onClick={() => navigate('/add')} className="nav-btn primary">+ Add item</button>
-                    <button onClick={() => navigate('/recommendations')} className="nav-btn">✨ For you</button>
-                    <button onClick={handleLogout} className="nav-btn logout">Log out</button>
-                </nav>
-            </header>
+            <Navbar />
 
             <main className="shelf-main">
                 <div className="shelf-hero">
@@ -122,7 +122,7 @@ export default function Shelf() {
                 ) : (
                     <div className="items-grid">
                         {filtered.map(item => (
-                            <ItemCard key={item.id} item={item} onDelete={handleDelete} />
+                            <ItemCard key={item.id} item={item} onDelete={handleDelete} onEdit={handleEdit} />
                         ))}
                     </div>
                 )}

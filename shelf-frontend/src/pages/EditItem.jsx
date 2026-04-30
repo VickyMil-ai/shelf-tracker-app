@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../api/axios';
 import './AddItem.css';
 import Navbar from '../components/Navbar';
 
 const FILM_STATUSES = [
     { value: 'watched', label: 'Watched' },
+    { value: 'watching', label: 'Watching' },
     { value: 'plan_to_watch', label: 'Plan to watch' },
 ];
 
@@ -15,26 +16,33 @@ const BOOK_STATUSES = [
     { value: 'plan_to_read', label: 'Plan to read' },
 ];
 
-export default function AddItem() {
+export default function EditItem() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const item = location.state?.item;
+
     const [form, setForm] = useState({
-        title: '',
-        type: 'film',
-        genre: '',
-        rating: '',
-        notes: '',
-        status: 'watched',
+        title: item?.title || '',
+        type: item?.type || 'film',
+        genre: item?.genre || '',
+        rating: item?.rating || '',
+        notes: item?.notes || '',
+        status: item?.status || 'watched',
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [hoverRating, setHoverRating] = useState(0);
-    const navigate = useNavigate();
+
+    // If someone navigates here directly without an item, send them back
+    if (!item) {
+        navigate('/shelf');
+        return null;
+    }
 
     const statuses = form.type === 'film' ? FILM_STATUSES : BOOK_STATUSES;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        // When type changes, reset status to the correct default
         if (name === 'type') {
             setForm(f => ({
                 ...f,
@@ -43,7 +51,6 @@ export default function AddItem() {
             }));
             return;
         }
-
         setForm(f => ({ ...f, [name]: value }));
     };
 
@@ -60,7 +67,7 @@ export default function AddItem() {
                 ...form,
                 rating: form.rating ? parseFloat(form.rating) : null,
             };
-            await api.post('/items/', payload);
+            await api.put(`/items/${item.id}`, payload);
             navigate('/shelf');
         } catch (err) {
             setError(err.response?.data?.detail || 'Something went wrong');
@@ -73,13 +80,13 @@ export default function AddItem() {
         <>
         <Navbar />
         <div className="add-container">
-            <div className="add-deco deco-1">✨</div>
-            <div className="add-deco deco-2">🎭</div>
+            <div className="add-deco deco-1">✏️</div>
+            <div className="add-deco deco-2">📝</div>
 
             <div className="add-card">
                 <button className="back-btn" onClick={() => navigate('/shelf')}>← Back</button>
-                <h1 className="add-title">Add to shelf</h1>
-                <p className="add-sub">What have you been watching or reading?</p>
+                <h1 className="add-title">Edit item</h1>
+                <p className="add-sub">Update the details for "{item.title}"</p>
 
                 <form onSubmit={handleSubmit} className="add-form">
 
@@ -108,7 +115,7 @@ export default function AddItem() {
                             name="title"
                             value={form.title}
                             onChange={handleChange}
-                            placeholder={form.type === 'film' ? 'e.g. Dune' : 'e.g. The Name of the Wind'}
+                            placeholder="Title"
                             required
                         />
                     </div>
@@ -182,11 +189,11 @@ export default function AddItem() {
                     {error && <p className="add-error">{error}</p>}
 
                     <button type="submit" className="submit-btn" disabled={loading}>
-                        {loading ? 'Adding...' : 'Add to shelf →'}
+                        {loading ? 'Saving...' : 'Save changes →'}
                     </button>
                 </form>
             </div>
         </div>
-    </>
+        </>
     );
 }

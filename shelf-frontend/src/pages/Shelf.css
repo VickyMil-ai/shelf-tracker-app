@@ -200,6 +200,27 @@
     margin-bottom: 0.7rem;
 }
 
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    color: #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    line-height: 1;
+}
+
+.edit-btn:hover { color: #6BCB77; }
+
 .stars {
     display: block;
     margin-bottom: 0.5rem;
@@ -235,7 +256,7 @@
     line-height: 1.4;
 }
 
-.delete-btn {
+/* .delete-btn {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -247,7 +268,7 @@
     transition: color 0.2s;
     padding: 0;
     line-height: 1;
-}
+} */
 
 .delete-btn:hover {
     color: #FF6B6B;

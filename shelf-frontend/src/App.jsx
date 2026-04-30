@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import Shelf from './pages/Shelf';
 import AddItem from './pages/AddItem';
 import Recommendations from './pages/Recommendations';
+import EditItem from './pages/EditItem';
 
 function PrivateRoute({ children }) {
     const token = localStorage.getItem('token');
@@ -20,6 +21,7 @@ export default function App() {
                 <Route path="/shelf" element={<PrivateRoute><Shelf /></PrivateRoute>} />
                 <Route path="/add" element={<PrivateRoute><AddItem /></PrivateRoute>} />
                 <Route path="/recommendations" element={<PrivateRoute><Recommendations /></PrivateRoute>} />
+                <Route path="/edit" element={<PrivateRoute><EditItem /></PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     );

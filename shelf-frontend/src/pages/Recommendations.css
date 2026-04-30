@@ -6,7 +6,7 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-.shelf-header {
+/* .shelf-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,7 +16,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-}
+} */
 
 .shelf-logo {
     font-family: 'Fraunces', serif;
