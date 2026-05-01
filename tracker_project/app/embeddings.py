@@ -1,5 +1,5 @@
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores.pgvector import PGVector
+from langchain_postgres import PGVectorStore
 from sqlalchemy.orm import Session
 from app import models
 import os

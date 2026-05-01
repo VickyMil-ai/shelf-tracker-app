@@ -6,7 +6,7 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-/* .shelf-header {
+.shelf-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,7 +16,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-} */
+}
 
 .shelf-logo {
     font-family: 'Fraunces', serif;
@@ -222,4 +222,66 @@
     font-size: 0.95rem;
     margin: 0;
     white-space: pre-wrap;
+}
+
+/* Sections */
+.rec-section {
+    margin-bottom: 3rem;
+}
+
+.rec-section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #111;
+    margin: 0 0 0.3rem;
+}
+
+.rec-section-sub {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin: 0 0 1.5rem;
+}
+
+.rec-divider {
+    border: none;
+    border-top: 2px dashed #eee;
+    margin: 2rem 0 3rem;
+}
+
+/* Next pick card */
+.next-prompt {
+    box-shadow: 6px 6px 0px #6BCB77;
+}
+
+.next-btn {
+    background: #6BCB77 !important;
+    border-color: #6BCB77 !important;
+    color: #111 !important;
+}
+
+.next-btn:hover {
+    background: #111 !important;
+    border-color: #111 !important;
+    color: white !important;
+}
+
+.next-pick-card {
+    background: white;
+    border: 2px solid #111;
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 5px 5px 0px #6BCB77;
+    animation: fadeIn 0.5s ease both;
+}
+
+.next-pick-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6BCB77;
+    margin-bottom: 0.8rem;
 }
