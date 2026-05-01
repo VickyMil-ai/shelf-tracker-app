@@ -3,7 +3,7 @@ Smart film &amp; book tracker with AI recommendations
 
 add:
 
-movie/book db
+fix book genres
 
 sort by planning / rating
 
