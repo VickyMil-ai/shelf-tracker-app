@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import './Shelf.css';
@@ -45,22 +45,17 @@ export default function Shelf() {
     const [items, setItems] = useState([]);
     const [filter, setFilter] = useState('all');
     const [loading, setLoading] = useState(true);
-    const [username, setUsername] = useState('');
+    // const [username, setUsername] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchItems();
-        fetchUser();
-    }, []);
+    // const fetchUser = async () => {
+    //     try {
+    //         const res = await api.get('/auth/me');
+    //         setUsername(res.data.username);
+    //     } catch {}
+    // };
 
-    const fetchUser = async () => {
-        try {
-            const res = await api.get('/auth/me');
-            setUsername(res.data.username);
-        } catch {}
-    };
-
-    const fetchItems = async () => {
+    const fetchItems = useCallback(async () => {
         try {
             const res = await api.get('/items/');
             setItems(res.data);
@@ -71,7 +66,11 @@ export default function Shelf() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [navigate]);
+
+    useEffect(() => {
+        fetchItems();
+    }, [fetchItems]);
 
     const handleDelete = async (id) => {
         if (!window.confirm('Remove this from your shelf?')) return;

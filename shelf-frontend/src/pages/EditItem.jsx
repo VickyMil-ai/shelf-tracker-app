@@ -133,46 +133,51 @@ export default function EditItem() {
 
                     {/* Status */}
                     <div className="field">
-                        <label>Status</label>
-                        <div className="status-toggle">
-                            {statuses.map(s => (
-                                <button
-                                    key={s.value}
-                                    type="button"
-                                    className={`toggle-btn ${form.status === s.value ? 'active' : ''}`}
-                                    onClick={() => setForm(f => ({ ...f, status: s.value }))}
-                                >
-                                    {s.label}
-                                </button>
-                            ))}
+                            <label>Status</label>
+                            <div className="status-toggle">
+                                {statuses.map(s => (
+                                    <button
+                                        key={s.value}
+                                        type="button"
+                                        className={`toggle-btn ${form.status === s.value ? 'active' : ''}`}
+                                        onClick={() => setForm(f => ({
+                                            ...f,
+                                            status: s.value,
+                                            rating: s.value === 'plan_to_watch' || s.value === 'plan_to_read' ? '' : f.rating
+                                        }))}
+                                    >
+                                        {s.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
 
-                    {/* Star rating */}
-                    <div className="field">
-                        <label>Rating</label>
-                        <div className="star-picker">
-                            {[1, 2, 3, 4, 5].map(i => (
-                                <span
-                                    key={i}
-                                    className={`pick-star ${i <= (hoverRating || form.rating) ? 'active' : ''}`}
-                                    onClick={() => handleRating(i)}
-                                    onMouseEnter={() => setHoverRating(i)}
-                                    onMouseLeave={() => setHoverRating(0)}
-                                >
-                                    ★
-                                </span>
-                            ))}
-                            {form.rating && (
-                                <span
-                                    className="clear-rating"
-                                    onClick={() => setForm(f => ({ ...f, rating: '' }))}
-                                >
-                                    clear
-                                </span>
-                            )}
+                        {form.status !== 'plan_to_watch' && form.status !== 'plan_to_read' && (
+                        <div className="field">
+                            <label>Rating</label>
+                            <div className="star-picker">
+                                {[1, 2, 3, 4, 5].map(i => (
+                                    <span
+                                        key={i}
+                                        className={`pick-star ${i <= (hoverRating || form.rating) ? 'active' : ''}`}
+                                        onClick={() => handleRating(i)}
+                                        onMouseEnter={() => setHoverRating(i)}
+                                        onMouseLeave={() => setHoverRating(0)}
+                                    >
+                                        ★
+                                    </span>
+                                ))}
+                                {form.rating && (
+                                    <span
+                                        className="clear-rating"
+                                        onClick={() => setForm(f => ({ ...f, rating: '' }))}
+                                    >
+                                        clear
+                                    </span>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Notes */}
                     <div className="field">
