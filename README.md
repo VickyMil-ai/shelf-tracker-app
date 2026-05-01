@@ -1,13 +1,14 @@
 # tracker-app
 Smart film &amp; book tracker with AI recommendations
 
-fixes:
-edit item
+add:
+
+movie/book db
 sort by planning / rating
 
-try to add: 
-recs based on planning list
-movie/book db
+warnings:
+
+langchain pgvector
 
 Useful postgresql commands:
 
