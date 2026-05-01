@@ -4,6 +4,7 @@ Smart film &amp; book tracker with AI recommendations
 add:
 
 movie/book db
+
 sort by planning / rating
 
 warnings:
