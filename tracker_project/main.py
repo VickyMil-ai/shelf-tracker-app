@@ -7,6 +7,7 @@ load_dotenv()  # reads .env and sets all variables as environment variables
 
 from app.routers import auth, items, recommendations
 from app.database import Base, engine
+from app.routers import search
 
 # Create all tables
 Base.metadata.create_all(bind=engine)
@@ -28,6 +29,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(items.router, prefix="/items", tags=["Items"])
 app.include_router(recommendations.router, prefix="/recommendations", tags=["Recommendations"])
+app.include_router(search.router, prefix="/search", tags=["Search"])
 
 @app.get("/")
 def root():
