@@ -81,7 +81,7 @@ def get_recommendations(
     similar_texts = "\n".join([doc.page_content for doc in similar]) if similar else "None found yet"
 
     # Generate recommendations with LLM
-    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
+    llm = ChatOpenAI(model="gpt-5.4-mini", temperature=0.7)
     chain = recommendation_prompt | llm
 
     result = chain.invoke({
@@ -157,7 +157,7 @@ Be specific and personal ? reference actual things they liked to explain the mat
 """
     )
 
-    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
+    llm = ChatOpenAI(model="gpt-5.4-mini", temperature=0.7)
     chain = next_prompt | llm
 
     result = chain.invoke({
