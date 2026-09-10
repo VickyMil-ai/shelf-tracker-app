@@ -12,6 +12,13 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
 
+    @field_validator("password")
+    @classmethod
+    def password_fits_bcrypt(cls, value: str) -> str:
+        if len(value.encode("utf-8")) > 72:
+            raise ValueError("Password must be 72 bytes or fewer")
+        return value
+
 class UserOut(BaseModel):
     id: int
     username: str

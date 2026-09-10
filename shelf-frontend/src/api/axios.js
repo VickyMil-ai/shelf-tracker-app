@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const defaultBaseURL = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:8000'
+    : '/api';
+
 const api = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: process.env.REACT_APP_API_URL || defaultBaseURL,
 });
 
 // Automatically attach JWT token to every request

@@ -1,8 +1,13 @@
 fastapi
 uvicorn
+httpx
 sqlalchemy
 psycopg2-binary
 pydantic[email]
+python-multipart
 python-dotenv
-passlib[bcrypt]
+bcrypt>=4,<6
 python-jose[cryptography]
+langchain-openai
+langchain-community
+pgvector

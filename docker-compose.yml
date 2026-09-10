@@ -1,0 +1,32 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/shelf
+      SECRET_KEY: ${SECRET_KEY:-change-this-secret-key}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      TMDB_API_KEY: ${TMDB_API_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: shelf
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d shelf"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

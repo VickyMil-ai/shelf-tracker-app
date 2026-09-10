@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 import httpx
 import os
 
@@ -8,19 +8,31 @@ TMDB_BASE = "https://api.themoviedb.org/3"
 OPENLIBRARY_BASE = "https://openlibrary.org"
 
 
-def get_tmdb_headers():
-    return {"Authorization": f"Bearer {os.getenv('TMDB_API_KEY')}"}
+def get_tmdb_auth():
+    """Support both TMDB v3 API keys and v4 Bearer access tokens."""
+    token = os.getenv("TMDB_API_KEY")
+    if not token:
+        raise HTTPException(status_code=503, detail="TMDB_API_KEY is not configured")
+
+    if token.startswith("eyJ"):
+        return {"Authorization": f"Bearer {token}"}, {}
+    return {}, {"api_key": token}
 
 
 @router.get("/films")
 async def search_films(q: str = Query(..., min_length=1)):
-    async with httpx.AsyncClient() as client:
-        res = await client.get(
-            f"{TMDB_BASE}/search/movie",
-            headers=get_tmdb_headers(),
-            params={"query": q, "language": "en-US", "page": 1}
-        )
-        data = res.json()
+    headers, auth_params = get_tmdb_auth()
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            res = await client.get(
+                f"{TMDB_BASE}/search/movie",
+                headers=headers,
+                params={**auth_params, "query": q, "language": "en-US", "page": 1}
+            )
+            res.raise_for_status()
+            data = res.json()
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=502, detail="TMDB search is unavailable") from exc
 
     results = []
     for movie in data.get("results", [])[:6]:
@@ -41,12 +53,16 @@ async def search_films(q: str = Query(..., min_length=1)):
 
 @router.get("/books")
 async def search_books(q: str = Query(..., min_length=1)):
-    async with httpx.AsyncClient() as client:
-        res = await client.get(
-            f"{OPENLIBRARY_BASE}/search.json",
-            params={"q": q, "limit": 6, "fields": "title,author_name,subject,cover_i,first_publish_year"}
-        )
-        data = res.json()
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            res = await client.get(
+                f"{OPENLIBRARY_BASE}/search.json",
+                params={"q": q, "limit": 6, "fields": "title,author_name,subject,cover_i,first_publish_year"}
+            )
+            res.raise_for_status()
+            data = res.json()
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=502, detail="Open Library search is unavailable") from exc
 
     results = []
     for book in data.get("docs", [])[:6]:

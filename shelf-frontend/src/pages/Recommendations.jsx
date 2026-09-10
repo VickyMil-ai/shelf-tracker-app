@@ -40,8 +40,26 @@ export default function Recommendations() {
     };
 
     const parseRecommendations = (text) => {
-        const blocks = text.split(/\n(?=\d+\.)/).filter(Boolean);
-        return blocks.map(block => block.trim());
+        // Only turn numbered entries into cards. This prevents an LLM preamble
+        // such as "Here are your recommendations:" from becoming item 1.
+        const numberedEntries = [...text.matchAll(/(?:^|\n)\s*\d+[.)]\s+([\s\S]*?)(?=(?:\n\s*\d+[.)]\s+)|$)/g)];
+
+        if (numberedEntries.length > 0) {
+            return numberedEntries.map(([, entry]) => entry.trim());
+        }
+
+        return text.trim() ? [text.trim()] : [];
+    };
+
+    const renderFormattedText = (text) => {
+        // Models occasionally return escaped Markdown (\\*\\*Title\\*\\*).
+        const normalizedText = text.replace(/\\\*/g, '*');
+        return normalizedText.split(/(\*\*[^*]+\*\*)/g).map((part, i) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+                return <strong key={i}>{part.slice(2, -2)}</strong>;
+            }
+            return <span key={i}>{part}</span>;
+        });
     };
 
     return (
@@ -97,7 +115,7 @@ export default function Recommendations() {
                                     {parseRecommendations(result.recommendations).map((block, i) => (
                                         <div key={i} className="rec-card">
                                             <div className="rec-number">{i + 1}</div>
-                                            <p className="rec-text">{block.replace(/^\d+\.\s*/, '')}</p>
+                                            <p className="rec-text">{renderFormattedText(block)}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -152,7 +170,7 @@ export default function Recommendations() {
                                 </div>
                                 <div className="next-pick-card">
                                     <div className="next-pick-label">Watch or read next</div>
-                                    <p className="rec-text">{nextResult.pick}</p>
+                                    <p className="rec-text">{renderFormattedText(nextResult.pick)}</p>
                                 </div>
                                 <button className="rec-btn secondary" onClick={fetchNext}>
                                     Ask again

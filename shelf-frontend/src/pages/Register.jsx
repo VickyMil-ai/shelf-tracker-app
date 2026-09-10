@@ -21,7 +21,15 @@ export default function Register() {
             await api.post('/auth/register', form);
             navigate('/login');
         } catch (err) {
-            setError(err.response?.data?.detail || 'Registration failed');
+            const detail = err.response?.data?.detail;
+            const message = Array.isArray(detail)
+                ? detail.map((item) => item.msg).join(', ')
+                : detail;
+            setError(message || (
+                err.response
+                    ? 'Registration failed'
+                    : 'Cannot reach the backend at http://localhost:8000'
+            ));
         } finally {
             setLoading(false);
         }
