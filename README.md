@@ -182,48 +182,6 @@ Run frontend tests:
 npm test
 ```
 
-## Troubleshooting
-
-### `react-scripts: command not found`
-
-Install frontend dependencies from the frontend directory:
-
-```bash
-cd shelf-frontend
-npm ci
-```
-
-### Registration returns `Cannot POST /auth/register`
-
-Another application may be using port 8000. Confirm that FastAPI owns the port:
-
-```bash
-curl http://localhost:8000/
-```
-
-The response should be:
-
-```json
-{"message":"Welcome to Shelf API!"}
-```
-
-### Registration cannot reach the backend
-
-Start Uvicorn from `shelf-backend`, not from the repository root:
-
-```bash
-cd shelf-backend
-source .venv/bin/activate
-python -m uvicorn main:app --reload
-```
-
-### Film or book search does not load
-
-- Confirm that Uvicorn is running on port 8000.
-- Confirm that `TMDB_API_KEY` is present for film search.
-- Open Library needs internet access but does not require a key.
-- Restart the frontend after changing environment variables.
-
 ## Database access
 
 Open the local database shell:
